@@ -1,0 +1,2 @@
+export declare const typeDefs = "#graphql\n  type User {\n    id: ID!\n    username: String!\n    mobileNumber: String!\n    type: String!\n    address: String!\n  }\n\n  type Query {\n    users: [User]\n  }\n\n  type Mutation {\n    register(username: String!, mobileNumber: String!, type: String!, address: String!): User\n  }\n";
+//# sourceMappingURL=base.type.d.ts.map
