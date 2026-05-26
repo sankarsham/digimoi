@@ -1,0 +1,49 @@
+import { gql } from "apollo-server-express";
+
+export const userType = gql`
+    enum UserType {
+        A
+        S
+        O
+    }
+
+    enum Gender {
+        MALE
+        FEMALE
+        OTHER
+    }
+
+    type User {
+        id: ID!
+        username: String!
+        mobile: String!
+        userType: UserType
+        address: String!
+        email: String!
+        gender: Gender
+        createdTime: String
+    }
+
+    input RegisterInput {
+        username: String!
+        mobile: String!
+        userType: UserType
+        address: String!
+        email: String!
+        password: String!
+        gender: Gender
+    }
+
+    type RegisterResponse {
+        user: User
+        token: String
+    }
+
+    extend type Query {
+        getAllUsers: [User]
+    }
+
+    extend type Mutation {
+        register(input: RegisterInput!): RegisterResponse!
+    }
+`;

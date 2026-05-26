@@ -1,0 +1,57 @@
+import { userModel } from "../../DB/MongoDB/User/User.js";
+import bcrypt from "bcryptjs";
+import { signToken } from "../../helpers/validation.js";
+
+export const UserService = {
+
+    async getAllUsers() {
+        const users = await userModel.find();
+        return users.map((user) =>({
+            id: user._id,
+            username: user.username,
+            mobile: user.mobile,
+            userType: user.userType,
+            address: user.address,
+            email: user.email,
+            gender: user.gender,
+        
+        }))
+        
+    },
+    async register(input: any) {
+        const { username, mobile, userType, address, email, password, gender } = input;
+
+        const existingUser = await userModel.findOne({ email });
+        if (existingUser) {
+            throw new Error("User already exists with this email");
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = await userModel.create({
+            username,
+            mobile,
+            userType: userType || "null",
+            address,
+            email,
+            password: hashedPassword,
+            gender: gender || "null",
+        });
+
+        const token = signToken({ id: newUser._id, email: newUser.email });
+
+        return {
+            user: {
+                id: newUser._id,
+                username: newUser.username,
+                mobile: newUser.mobile,
+                userType: newUser.userType,
+                address: newUser.address,
+                email: newUser.email,
+                gender: newUser.gender,
+                createdTime: newUser.createdTime?.toISOString(),
+            },
+            token,
+        };
+    },
+};
