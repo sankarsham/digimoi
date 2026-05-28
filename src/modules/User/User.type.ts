@@ -40,11 +40,17 @@ export const userType = gql`
         token: String
     }
 
+    input LoginInput {
+        email: String!
+        password: String!
+    }
+
     extend type Query {
         getAllUsers: [User]
     }
 
     extend type Mutation {
         register(input: RegisterInput!): RegisterResponse!
+        login(input: LoginInput!): RegisterResponse!
     }
 `;
