@@ -10,5 +10,8 @@ export const userResolvers = {
         register: async (_: any, { input }: any) => {
             return UserService.register(input);
         },
+        login: async (_: any, { input }: any) => {
+            return UserService.loginUser(input);
+        }
     },
 };
