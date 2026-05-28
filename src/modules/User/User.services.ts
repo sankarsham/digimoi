@@ -38,7 +38,7 @@ export const UserService = {
             gender: gender || "null",
         });
 
-        const token = signToken({ id: newUser._id, email: newUser.email });
+        const token = signToken({ id: newUser._id, email: newUser.email, userType: newUser.userType });
 
         return {
             user: {
@@ -67,7 +67,7 @@ export const UserService = {
             throw new Error("Invalid email or password");
         }
 
-        const token = signToken({ id: user._id, email: user.email });
+        const token = signToken({ id: user._id, email: user.email, userType: user.userType });
 
         return {
             user: {
