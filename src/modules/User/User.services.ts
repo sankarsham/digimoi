@@ -38,7 +38,7 @@ export const UserService = {
             gender: gender || "null",
         });
 
-        const token = signToken({ id: newUser._id, email: newUser.email });
+        const token = signToken({ id: newUser._id, email: newUser.email, userType: newUser.userType });
 
         return {
             user: {
@@ -54,4 +54,33 @@ export const UserService = {
             token,
         };
     },
+    async loginUser(input: any){
+        const { email, password } = input;
+        const user = await userModel.findOne({ email });
+
+        if (!user || !user.password){
+            throw new Error("Invalid email or password");
+        }
+        
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            throw new Error("Invalid email or password");
+        }
+
+        const token = signToken({ id: user._id, email: user.email, userType: user.userType });
+
+        return {
+            user: {
+                id: user._id,
+                username: user.username,
+                mobile: user.mobile,
+                userType: user.userType,
+                address: user.address,
+                email: user.email,
+                gender: user.gender,
+                createdTime: user.createdTime?.toISOString(),
+            },
+            token,
+        };
+    }
 };

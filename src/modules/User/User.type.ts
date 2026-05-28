@@ -2,6 +2,7 @@ import { gql } from "apollo-server-express";
 
 export const userType = gql`
     enum UserType {
+        SA
         A
         S
         O
