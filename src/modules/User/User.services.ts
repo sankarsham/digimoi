@@ -82,5 +82,34 @@ export const UserService = {
             },
             token,
         };
-    }
+    },
+
+    async updateUser(id: string, input: any) {
+        const updatedUser = await userModel
+            .findByIdAndUpdate(id, input, { new: true })
+            .exec();
+
+        if (!updatedUser) {
+            throw new Error("User not found");
+        }
+
+        return {
+            id: updatedUser._id,
+            username: updatedUser.username,
+            mobile: updatedUser.mobile,
+            userType: updatedUser.userType,
+            address: updatedUser.address,
+            email: updatedUser.email,
+            gender: updatedUser.gender,
+            createdTime: updatedUser.createdTime ? new Date(updatedUser.createdTime).toISOString() : null,
+        };
+    },
+
+    async deleteUser(id: string) {
+        const deletedUser = await userModel.findByIdAndDelete(id);
+        if (!deletedUser) {
+            throw new Error("User not found");
+        }
+        return "User deleted successfully";
+    },
 };
