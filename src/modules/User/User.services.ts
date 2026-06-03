@@ -14,8 +14,8 @@ export const UserService = {
             address: user.address,
             email: user.email,
             gender: user.gender,
-        
-        }))
+            createdTime: user.createdTime ? new Date(user.createdTime).toISOString() : null,
+        }));
         
     },
     async register(input: any) {

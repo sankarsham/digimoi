@@ -10,6 +10,7 @@ export const createEventType = gql`
         tamilDate: String
         contactNumber: Float
         operatorName: String
+        description: String
         createdTime: String
     }
 
@@ -21,6 +22,7 @@ export const createEventType = gql`
         tamilDate: String
         contactNumber: Float
         operatorName: String
+        description: String!
     }
 
     input UpdateEventInput {
@@ -31,6 +33,7 @@ export const createEventType = gql`
         tamilDate: String
         contactNumber: Float
         operatorName: String
+        description: String
     }
 
     extend type Mutation {
