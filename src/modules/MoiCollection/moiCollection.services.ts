@@ -15,7 +15,6 @@ export const MoiCollectionService = {
             operatorName,
             amount,
             cashBreakdown,
-            description,
         } = input;
         
         if (!eventId || !Types.ObjectId.isValid(eventId)) {
@@ -36,8 +35,8 @@ export const MoiCollectionService = {
             phoneNumber,
             operatorName,
             amount,
+            amount,
             cashBreakdown: cashBreakdown || [],
-            description,
         };
 
         if (operatorId && Types.ObjectId.isValid(operatorId)) {
@@ -64,7 +63,6 @@ export const MoiCollectionService = {
             operatorName: populatedMoi.operatorName || null,
             amount: populatedMoi.amount || null,
             cashBreakdown: populatedMoi.cashBreakdown || [],
-            description: populatedMoi.description,
             createdTime: populatedMoi.createdTime ? new Date(populatedMoi.createdTime).toISOString() : null,
         };
     },
@@ -87,8 +85,7 @@ export const MoiCollectionService = {
         operatorName: updateMoi.operatorName || null,
         amount: updateMoi.amount || null,
         cashBreakdown: updateMoi.cashBreakdown || [],
-        description: updateMoi.description,
-        createdTime: updateMoi.createdTime ? new Date(updateMoi.createdTime).toString(): null,
+        createdTime: updateMoi.createdTime ? new Date(updateMoi.createdTime).toISOString(): null,
         
 
        }
@@ -112,7 +109,6 @@ export const MoiCollectionService = {
             operatorName: moi.operatorName || null,
             amount: moi.amount || null,
             cashBreakdown: moi.cashBreakdown || [],
-            description: moi.description,
             createdTime: moi.createdTime ? new Date(moi.createdTime).toISOString() : null,
         }));
     }

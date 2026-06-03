@@ -16,7 +16,6 @@ export interface IMoiCollection extends Document {
     operatorName?: string;
     amount?: number;
     cashBreakdown?: ICashBreakdown[];
-    description?: string;
     createdTime: Date;
 }
 
@@ -60,10 +59,7 @@ const MoiCollectionSchema = new Schema<IMoiCollection>({
         type: [CashBreakdownSchema],
         default: [],
     },
-    description: {
-        type: String,
-        required: true,
-    },
+  
     createdTime: {
         type: Date,
         default: Date.now,
