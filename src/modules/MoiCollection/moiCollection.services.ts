@@ -9,6 +9,8 @@ export const MoiCollectionService = {
             operatorId,
             name,
             place,
+            native,
+            work,
             phoneNumber,
             operatorName,
             amount,
@@ -29,6 +31,8 @@ export const MoiCollectionService = {
             eventId: new Types.ObjectId(eventId),
             name,
             place,
+            native,
+            work,
             phoneNumber,
             operatorName,
             amount,
@@ -54,6 +58,8 @@ export const MoiCollectionService = {
             operatorId: populatedMoi.operatorId ? populatedMoi.operatorId.toString() : null,
             name: populatedMoi.name || null,
             place: populatedMoi.place || null,
+            native: populatedMoi.native || null,
+            work: populatedMoi.work || null,
             phoneNumber: populatedMoi.phoneNumber || null,
             operatorName: populatedMoi.operatorName || null,
             amount: populatedMoi.amount || null,
@@ -64,7 +70,7 @@ export const MoiCollectionService = {
     },
     
     async updateMoiCollection(id: string, input: any){
-       const updateMoi = await MoiCollectionModel.findByIdAndUpdate(id, input, { new: true }).lean().exec();
+       const updateMoi = await MoiCollectionModel.findByIdAndUpdate(id, input, { returnDocument: 'after' }).lean().exec();
        if (!updateMoi) {
         throw new Error("Moi collection Error")
        }
@@ -75,6 +81,8 @@ export const MoiCollectionService = {
         operatorId: updateMoi.operatorId?.toString(),
         name: updateMoi.name || null,
         place: updateMoi.place || null,
+        native: updateMoi.native || null,
+        work: updateMoi.work || null,
         phoneNumber: updateMoi.phoneNumber || null,
         operatorName: updateMoi.operatorName || null,
         amount: updateMoi.amount || null,
@@ -98,6 +106,8 @@ export const MoiCollectionService = {
             operatorId: moi.operatorId ? moi.operatorId.toString() : null,
             name: moi.name || null,
             place: moi.place || null,
+            native: moi.native || null,
+            work: moi.work || null,
             phoneNumber: moi.phoneNumber || null,
             operatorName: moi.operatorName || null,
             amount: moi.amount || null,

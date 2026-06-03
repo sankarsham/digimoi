@@ -18,6 +18,8 @@ export const moiCollectionType = gql`
         operatorId: ID
         name: String
         place: String
+        native: String
+        work: String
         phoneNumber: String
         operatorName: String
         amount: Float
@@ -31,6 +33,8 @@ export const moiCollectionType = gql`
         operatorId: ID
         name: String
         place: String
+        native: String
+        work: String
         phoneNumber: String
         operatorName: String
         amount: Float
@@ -43,6 +47,8 @@ export const moiCollectionType = gql`
         operatorId: ID
         name: String
         place: String
+        native: String
+        work: String
         phoneNumber: String
         operatorName: String
         amount: Float

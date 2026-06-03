@@ -10,6 +10,8 @@ export interface IMoiCollection extends Document {
     operatorId?: Types.ObjectId;
     name?: string;
     place?: string;
+    native?: string;
+    work?: string;
     phoneNumber?: string;
     operatorName?: string;
     amount?: number;
@@ -37,6 +39,12 @@ const MoiCollectionSchema = new Schema<IMoiCollection>({
         type: String,
     },
     place: {
+        type: String,
+    },
+    native: {
+        type: String,
+    },
+    work: {
         type: String,
     },
     phoneNumber: {

@@ -14,8 +14,9 @@ export const UserService = {
             address: user.address,
             email: user.email,
             gender: user.gender,
-            createdTime: user.createdTime ? new Date(user.createdTime).toISOString() : null,
-        }));
+            lastLogin: user.lastLogin?.toISOString(),
+            lastLogout: user.lastLogout?.toISOString(),
+        }))
         
     },
     async register(input: any) {
@@ -50,6 +51,8 @@ export const UserService = {
                 email: newUser.email,
                 gender: newUser.gender,
                 createdTime: newUser.createdTime?.toISOString(),
+                lastLogin: newUser.lastLogin?.toISOString(),
+                lastLogout: newUser.lastLogout?.toISOString(),
             },
             token,
         };
@@ -67,6 +70,9 @@ export const UserService = {
             throw new Error("Invalid email or password");
         }
 
+        user.lastLogin = new Date();
+        await user.save();
+
         const token = signToken({ id: user._id, email: user.email, userType: user.userType });
 
         return {
@@ -79,6 +85,8 @@ export const UserService = {
                 email: user.email,
                 gender: user.gender,
                 createdTime: user.createdTime?.toISOString(),
+                lastLogin: user.lastLogin?.toISOString(),
+                lastLogout: user.lastLogout?.toISOString(),
             },
             token,
         };
@@ -86,7 +94,7 @@ export const UserService = {
 
     async updateUser(id: string, input: any) {
         const updatedUser = await userModel
-            .findByIdAndUpdate(id, input, { new: true })
+            .findByIdAndUpdate(id, input, { returnDocument: 'after' })
             .exec();
 
         if (!updatedUser) {
@@ -102,7 +110,19 @@ export const UserService = {
             email: updatedUser.email,
             gender: updatedUser.gender,
             createdTime: updatedUser.createdTime ? new Date(updatedUser.createdTime).toISOString() : null,
+            lastLogin: updatedUser.lastLogin ? new Date(updatedUser.lastLogin).toISOString() : null,
+            lastLogout: updatedUser.lastLogout ? new Date(updatedUser.lastLogout).toISOString() : null,
         };
+    },
+
+    async logoutUser(id: string) {
+        const user = await userModel.findById(id);
+        if (!user) {
+            throw new Error("User not found");
+        }
+        user.lastLogout = new Date();
+        await user.save();
+        return "Logged out successfully";
     },
 
     async deleteUser(id: string) {

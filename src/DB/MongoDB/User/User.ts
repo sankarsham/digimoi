@@ -10,6 +10,8 @@ export interface IUser extends Document {
     gender: string;
     createdTime: Date;
     updatedTime: Date;
+    lastLogin?: Date;
+    lastLogout?: Date;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -48,6 +50,12 @@ const UserSchema = new Schema<IUser>({
     updatedTime: {
         type: Date,
         default: Date.now,
+    },
+    lastLogin: {
+        type: Date,
+    },
+    lastLogout: {
+        type: Date,
     },
 }
 );
