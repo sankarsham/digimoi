@@ -23,6 +23,8 @@ export const userType = gql`
         email: String!
         gender: Gender
         createdTime: String
+        lastLogin: String
+        lastLogout: String
     }
 
     input RegisterInput {
@@ -52,5 +54,8 @@ export const userType = gql`
     extend type Mutation {
         register(input: RegisterInput!): RegisterResponse!
         login(input: LoginInput!): RegisterResponse!
+        logoutUser(id: ID!): String!
+        updateUser(id: ID!, input: UpdateUserInput!): User!
+        deleteUser(id: ID!): String!
     }
 `;

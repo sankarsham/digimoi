@@ -10,6 +10,7 @@ export const CreateEventService = {
             tamilDate,
             contactNumber,
             operatorName,
+            description,
         } = input;
 
         const exists = await moiModel.findOne({ functionName, partyUsername });
@@ -25,6 +26,7 @@ export const CreateEventService = {
             tamilDate,
             contactNumber,
             operatorName,
+            description,
         });
 
         const populatedEvent = await moiModel.findById(newEvent._id).lean().exec();
@@ -42,6 +44,7 @@ export const CreateEventService = {
             tamilDate: populatedEvent.tamilDate || null,
             contactNumber: populatedEvent.contactNumber || null,
             operatorName: populatedEvent.operatorName || null,
+            description: populatedEvent.description || null,
             createdTime: populatedEvent.createdTime ? new Date(populatedEvent.createdTime).toISOString() : null,
         };
     },
@@ -57,12 +60,13 @@ export const CreateEventService = {
             tamilDate: event.tamilDate,
             contactNumber: event.contactNumber,
             operatorName: event.operatorName || null,
+            description: event.description || null,
             createdTime: event.createdTime?.toISOString(),
         }));
     },
 
     async updateEvent(id: string, input: any) {
-        const updatedEvent = await moiModel.findByIdAndUpdate(id, input, { new: true }).lean().exec();
+        const updatedEvent = await moiModel.findByIdAndUpdate(id, input, { returnDocument: 'after' }).lean().exec();
         if (!updatedEvent) {
             throw new Error("Event not found");
         }
@@ -75,6 +79,7 @@ export const CreateEventService = {
             tamilDate: updatedEvent.tamilDate || null,
             contactNumber: updatedEvent.contactNumber || null,
             operatorName: updatedEvent.operatorName || null,
+            description: updatedEvent.description || null,
             createdTime: updatedEvent.createdTime ? new Date(updatedEvent.createdTime).toISOString() : null,
         };
     },

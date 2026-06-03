@@ -8,6 +8,7 @@ export interface IMoi extends Document{
     tamilDate?: string;
     contactNumber?:number;
     operatorName?: string;
+    description?: string;
     createdTime: Date;
     
 }
@@ -33,6 +34,9 @@ const MoiSchema = new Schema<IMoi>({
         type: Number,
     },
     operatorName: {
+        type: String,
+    },
+    description: {
         type: String,
     },
     createdTime: {

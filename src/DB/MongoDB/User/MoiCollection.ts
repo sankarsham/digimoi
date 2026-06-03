@@ -10,10 +10,13 @@ export interface IMoiCollection extends Document {
     operatorId?: Types.ObjectId;
     name?: string;
     place?: string;
+    native?: string;
+    work?: string;
     phoneNumber?: string;
     operatorName?: string;
     amount?: number;
     cashBreakdown?: ICashBreakdown[];
+    description?: string;
     createdTime: Date;
 }
 
@@ -38,6 +41,12 @@ const MoiCollectionSchema = new Schema<IMoiCollection>({
     place: {
         type: String,
     },
+    native: {
+        type: String,
+    },
+    work: {
+        type: String,
+    },
     phoneNumber: {
         type: String,
     },
@@ -50,6 +59,9 @@ const MoiCollectionSchema = new Schema<IMoiCollection>({
     cashBreakdown: {
         type: [CashBreakdownSchema],
         default: [],
+    },
+    description: {
+        type: String,
     },
     createdTime: {
         type: Date,
