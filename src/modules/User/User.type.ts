@@ -37,6 +37,15 @@ export const userType = gql`
         gender: Gender
     }
 
+    input UpdateUserInput {
+        username: String
+        mobile: String
+        userType: UserType
+        address: String
+        email: String
+        gender: Gender
+    }
+
     type RegisterResponse {
         user: User
         token: String
