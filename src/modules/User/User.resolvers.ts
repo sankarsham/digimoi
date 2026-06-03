@@ -16,12 +16,10 @@ export const userResolvers = {
         logoutUser: async (_: any, { id }: any) => {
             return UserService.logoutUser(id);
         },
-        updateUser: async (_: any, { id, input }: any, context: any) => {
-            requireAdminOrSuperAdmin(context);
+        updateUser: async (_: any, { id, input }: any) => {
             return UserService.updateUser(id, input);
         },
-        deleteUser: async (_: any, { id }: any, context: any) => {
-            requireAdminOrSuperAdmin(context);
+        deleteUser: async (_: any, { id }: any) => {
             return UserService.deleteUser(id);
         },
     },
