@@ -24,7 +24,6 @@ export const moiCollectionType = gql`
         operatorName: String
         amount: Float
         cashBreakdown: [CashBreakdown]
-        description: String
         createdTime: String
     }
 
@@ -39,7 +38,6 @@ export const moiCollectionType = gql`
         operatorName: String
         amount: Float
         cashBreakdown: [CashBreakdownInput]
-        description: String!
     }
 
     input UpdateMoiCollectionInput {
@@ -53,7 +51,6 @@ export const moiCollectionType = gql`
         operatorName: String
         amount: Float
         cashBreakdown: [CashBreakdownInput]
-        description: String
     }
 
     extend type Mutation {
