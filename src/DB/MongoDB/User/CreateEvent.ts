@@ -1,16 +1,15 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IMoi extends Document{
-    functionName?:string;
-    partyUsername?:string;
-    place?:string;
-    date?: Date;
+    functionName?: string;
+    partyUsername?: string;
+    place?: string;
+    date?: string;
     tamilDate?: string;
-    contactNumber?:number;
+    contactNumber?: number;
     operatorName?: string;
     description?: string;
     createdTime: Date;
-    
 }
 
 
@@ -25,7 +24,7 @@ const MoiSchema = new Schema<IMoi>({
         type: String,
     },
     date: {
-        type: Date,
+        type: String,
     },
     tamilDate: {
         type: String,

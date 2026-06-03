@@ -64,7 +64,7 @@ export const MoiCollectionService = {
             operatorName: populatedMoi.operatorName || null,
             amount: populatedMoi.amount || null,
             cashBreakdown: populatedMoi.cashBreakdown || [],
-            description: populatedMoi.description || null,
+            description: populatedMoi.description,
             createdTime: populatedMoi.createdTime ? new Date(populatedMoi.createdTime).toISOString() : null,
         };
     },
@@ -87,7 +87,7 @@ export const MoiCollectionService = {
         operatorName: updateMoi.operatorName || null,
         amount: updateMoi.amount || null,
         cashBreakdown: updateMoi.cashBreakdown || [],
-        description: updateMoi.description || null,
+        description: updateMoi.description,
         createdTime: updateMoi.createdTime ? new Date(updateMoi.createdTime).toString(): null,
         
 
@@ -112,7 +112,7 @@ export const MoiCollectionService = {
             operatorName: moi.operatorName || null,
             amount: moi.amount || null,
             cashBreakdown: moi.cashBreakdown || [],
-            description: moi.description || null,
+            description: moi.description,
             createdTime: moi.createdTime ? new Date(moi.createdTime).toISOString() : null,
         }));
     }

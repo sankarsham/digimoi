@@ -22,7 +22,7 @@ export const createEventType = gql`
         tamilDate: String
         contactNumber: Float
         operatorName: String
-        description: String
+        description: String!
     }
 
     input UpdateEventInput {

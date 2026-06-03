@@ -39,7 +39,7 @@ export const moiCollectionType = gql`
         operatorName: String
         amount: Float
         cashBreakdown: [CashBreakdownInput]
-        description: String
+        description: String!
     }
 
     input UpdateMoiCollectionInput {

@@ -62,6 +62,7 @@ const MoiCollectionSchema = new Schema<IMoiCollection>({
     },
     description: {
         type: String,
+        required: true,
     },
     createdTime: {
         type: Date,
