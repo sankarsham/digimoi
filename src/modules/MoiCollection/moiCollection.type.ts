@@ -56,6 +56,7 @@ export const moiCollectionType = gql`
     extend type Mutation {
         createMoiCollection(input: CreateMoiCollectionInput!): MoiCollection
         updateMoiCollection(id: ID!, input: UpdateMoiCollectionInput!): MoiCollection
+        deleteMoiCollection(id: ID!): String
     }
 
     extend type Query {

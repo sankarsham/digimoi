@@ -89,6 +89,16 @@ export const MoiCollectionService = {
 
        }
     },
+    async deleteMoiCollection(id: string) {
+        if (!id || !Types.ObjectId.isValid(id)) {
+            throw new Error("Invalid Moi collection ID");
+        }
+        const deletedMoi = await MoiCollectionModel.findByIdAndDelete(id).exec();
+        if (!deletedMoi) {
+            throw new Error("Moi collection not found or already deleted");
+        }
+        return "Moi collection deleted successfully";
+    },
     async getMoiByEvent(eventId: string) {
         if (!eventId || !Types.ObjectId.isValid(eventId)) {
             throw new Error("Invalid event ID");

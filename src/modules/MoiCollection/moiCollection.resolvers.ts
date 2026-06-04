@@ -24,10 +24,20 @@ export const moiCollectionResolvers = {
             if (!context || !context.user) {
                 throw new Error("Unauthorized");
             }
-            if (context.user.userType !== "O" && context.user.userType !== "A" && context.user.userType !== "S") {
-                throw new Error("Unauthorized: Operator or Admin access required");
+            if (context.user.userType !== "A" && context.user.userType !== "S") {
+                throw new Error("Unauthorized: Admin or SuperAdmin access required to update");
             }
             return MoiCollectionService.updateMoiCollection(id, input);
+        },
+
+        deleteMoiCollection: async (_: any, { id }: any, context: any) => {
+            if (!context || !context.user) {
+                throw new Error("Unauthorized");
+            }
+            if (context.user.userType !== "A" && context.user.userType !== "S") {
+                throw new Error("Unauthorized: Admin or SuperAdmin access required to delete");
+            }
+            return MoiCollectionService.deleteMoiCollection(id);
         }
     }
 };
