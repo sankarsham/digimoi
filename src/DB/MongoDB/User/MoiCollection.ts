@@ -15,6 +15,8 @@ export interface IMoiCollection extends Document {
     phoneNumber?: string;
     operatorName?: string;
     amount?: number;
+    amountReceived?: number;
+    balance?: number;
     cashBreakdown?: ICashBreakdown[];
     createdTime: Date;
 }
@@ -53,6 +55,12 @@ const MoiCollectionSchema = new Schema<IMoiCollection>({
         type: String,
     },
     amount: {
+        type: Number,
+    },
+    amountReceived: {
+        type: Number,
+    },
+    balance: {
         type: Number,
     },
     cashBreakdown: {

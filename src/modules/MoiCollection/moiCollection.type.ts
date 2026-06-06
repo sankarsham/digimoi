@@ -23,6 +23,8 @@ export const moiCollectionType = gql`
         phoneNumber: String
         operatorName: String
         amount: Float
+        amountReceived: Float
+        balance: Float
         cashBreakdown: [CashBreakdown]
         createdTime: String
     }
@@ -37,6 +39,8 @@ export const moiCollectionType = gql`
         phoneNumber: String
         operatorName: String
         amount: Float
+        amountReceived: Float
+        balance: Float
         cashBreakdown: [CashBreakdownInput]
     }
 
@@ -50,6 +54,8 @@ export const moiCollectionType = gql`
         phoneNumber: String
         operatorName: String
         amount: Float
+        amountReceived: Float
+        balance: Float
         cashBreakdown: [CashBreakdownInput]
     }
 
