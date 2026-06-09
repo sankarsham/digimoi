@@ -16,7 +16,6 @@ export const MoiCollectionService = {
             amount,
             cashBreakdown,
         } = input;
-        
         if (!eventId || !Types.ObjectId.isValid(eventId)) {
             throw new Error("Invalid event ID");
         }
@@ -65,29 +64,29 @@ export const MoiCollectionService = {
             createdTime: populatedMoi.createdTime ? new Date(populatedMoi.createdTime).toISOString() : null,
         };
     },
-    
-    async updateMoiCollection(id: string, input: any){
-       const updateMoi = await MoiCollectionModel.findByIdAndUpdate(id, input, { returnDocument: 'after' }).lean().exec();
-       if (!updateMoi) {
-        throw new Error("Moi collection Error")
-       }
 
-       return {
-        id: updateMoi._id.toString(),
-        eventId: updateMoi.eventId.toString(),
-        operatorId: updateMoi.operatorId?.toString(),
-        name: updateMoi.name || null,
-        place: updateMoi.place || null,
-        native: updateMoi.native || null,
-        work: updateMoi.work || null,
-        phoneNumber: updateMoi.phoneNumber || null,
-        operatorName: updateMoi.operatorName || null,
-        amount: updateMoi.amount || null,
-        cashBreakdown: updateMoi.cashBreakdown || [],
-        createdTime: updateMoi.createdTime ? new Date(updateMoi.createdTime).toISOString(): null,
-        
+    async updateMoiCollection(id: string, input: any) {
+        const updateMoi = await MoiCollectionModel.findByIdAndUpdate(id, input, { returnDocument: 'after' }).lean().exec();
+        if (!updateMoi) {
+            throw new Error("Moi collection Error")
+        }
 
-       }
+        return {
+            id: updateMoi._id.toString(),
+            eventId: updateMoi.eventId.toString(),
+            operatorId: updateMoi.operatorId?.toString(),
+            name: updateMoi.name || null,
+            place: updateMoi.place || null,
+            native: updateMoi.native || null,
+            work: updateMoi.work || null,
+            phoneNumber: updateMoi.phoneNumber || null,
+            operatorName: updateMoi.operatorName || null,
+            amount: updateMoi.amount || null,
+            cashBreakdown: updateMoi.cashBreakdown || [],
+            createdTime: updateMoi.createdTime ? new Date(updateMoi.createdTime).toISOString() : null,
+
+
+        }
     },
     async deleteMoiCollection(id: string) {
         if (!id || !Types.ObjectId.isValid(id)) {
@@ -99,26 +98,55 @@ export const MoiCollectionService = {
         }
         return "Moi collection deleted successfully";
     },
-    async getMoiByEvent(eventId: string) {
+    async getMoiByEvent(eventId: string, page: number = 1, limit: number = 10, search: string = "") {
         if (!eventId || !Types.ObjectId.isValid(eventId)) {
             throw new Error("Invalid event ID");
         }
 
-        const moiList = await MoiCollectionModel.find({ eventId: new Types.ObjectId(eventId) }).lean().exec();
+        const query: any = { eventId: new Types.ObjectId(eventId) };
 
-        return moiList.map((moi) => ({
-            id: moi._id.toString(),
-            eventId: moi.eventId.toString(),
-            operatorId: moi.operatorId ? moi.operatorId.toString() : null,
-            name: moi.name || null,
-            place: moi.place || null,
-            native: moi.native || null,
-            work: moi.work || null,
-            phoneNumber: moi.phoneNumber || null,
-            operatorName: moi.operatorName || null,
-            amount: moi.amount || null,
-            cashBreakdown: moi.cashBreakdown || [],
-            createdTime: moi.createdTime ? new Date(moi.createdTime).toISOString() : null,
-        }));
+        if (search) {
+            query.$or = [
+                { name: { $regex: search, $options: "i" } },
+                { place: { $regex: search, $options: "i" } },
+                { phoneNumber: { $regex: search, $options: "i" } }
+            ];
+        }
+
+        const skip = (page - 1) * limit;
+
+        const [moiList, total, totalMembers, agg] = await Promise.all([
+            MoiCollectionModel.find(query).sort({ createdTime: -1 }).skip(skip).limit(limit).lean().exec(),
+            MoiCollectionModel.countDocuments(query),
+            MoiCollectionModel.countDocuments({ eventId: new Types.ObjectId(eventId) }),
+            MoiCollectionModel.aggregate([
+                { $match: { eventId: new Types.ObjectId(eventId) } },
+                { $group: { _id: null, totalAmount: { $sum: { $toDouble: "$amount" } } } }
+            ])
+        ]);
+
+        const totalAmount = agg.length > 0 ? agg[0].totalAmount : 0;
+
+        return {
+            data: moiList.map((moi: any) => ({
+                id: moi._id.toString(),
+                eventId: moi.eventId.toString(),
+                operatorId: moi.operatorId ? moi.operatorId.toString() : null,
+                name: moi.name || null,
+                place: moi.place || null,
+                native: moi.native || null,
+                work: moi.work || null,
+                phoneNumber: moi.phoneNumber || null,
+                operatorName: moi.operatorName || null,
+                amount: moi.amount || null,
+                cashBreakdown: moi.cashBreakdown || [],
+                createdTime: moi.createdTime ? new Date(moi.createdTime).toISOString() : null,
+            })),
+            total,
+            totalMembers,
+            totalAmount,
+            page,
+            limit
+        };
     }
 };

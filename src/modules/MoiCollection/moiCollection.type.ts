@@ -59,7 +59,16 @@ export const moiCollectionType = gql`
         deleteMoiCollection(id: ID!): String
     }
 
+    type PaginatedMoiCollection {
+        data: [MoiCollection]
+        total: Int
+        totalMembers: Int
+        totalAmount: Float
+        page: Int
+        limit: Int
+    }
+
     extend type Query {
-        getMoiByEvent(eventId: ID!): [MoiCollection]
+        getMoiByEvent(eventId: ID!, page: Int, limit: Int, search: String): PaginatedMoiCollection
     }
 `;
