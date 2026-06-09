@@ -11,6 +11,8 @@ export const CreateEventService = {
             contactNumber,
             operatorName,
             description,
+            day,
+            eventPlace,
         } = input;
 
         const newEvent = await moiModel.create({
@@ -22,9 +24,11 @@ export const CreateEventService = {
             contactNumber,
             operatorName,
             description,
+            day,
+            eventPlace,
         });
 
-        const populatedEvent = await moiModel.findById(newEvent._id).lean().exec();
+        const populatedEvent = await moiModel.findById((newEvent as any)._id).lean().exec();
 
         if (!populatedEvent) {
             throw new Error("Failed to create event");
@@ -40,6 +44,8 @@ export const CreateEventService = {
             contactNumber: populatedEvent.contactNumber || null,
             operatorName: populatedEvent.operatorName || null,
             description: populatedEvent.description || null,
+            day: populatedEvent.day || null,
+            eventPlace: populatedEvent.eventPlace || null,
             createdTime: populatedEvent.createdTime
                 ? new Date(populatedEvent.createdTime).toISOString()
                 : null,
@@ -58,6 +64,8 @@ export const CreateEventService = {
             contactNumber: event.contactNumber || null,
             operatorName: event.operatorName || null,
             description: event.description || null,
+            day: event.day || null,
+            eventPlace: event.eventPlace || null,
             createdTime: event.createdTime
                 ? new Date(event.createdTime).toISOString()
                 : null,
@@ -84,6 +92,8 @@ export const CreateEventService = {
             contactNumber: updatedEvent.contactNumber || null,
             operatorName: updatedEvent.operatorName || null,
             description: updatedEvent.description || null,
+            day: updatedEvent.day || null,
+            eventPlace: updatedEvent.eventPlace || null,
             createdTime: updatedEvent.createdTime
                 ? new Date(updatedEvent.createdTime).toISOString()
                 : null,

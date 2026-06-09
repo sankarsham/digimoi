@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IMoi extends Document{
+export interface IMoi extends Document {
     functionName?: string;
     partyUsername?: string;
     place?: string;
@@ -9,7 +9,10 @@ export interface IMoi extends Document{
     contactNumber?: number;
     operatorName?: string;
     description?: string;
+    day: string;
+    eventPlace: string;
     createdTime: Date;
+
 }
 
 
@@ -36,6 +39,12 @@ const MoiSchema = new Schema<IMoi>({
         type: String,
     },
     description: {
+        type: String,
+    },
+    day: {
+        type: String,
+    },
+    eventPlace: {
         type: String,
     },
     createdTime: {

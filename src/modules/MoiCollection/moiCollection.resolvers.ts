@@ -2,11 +2,11 @@ import { MoiCollectionService } from "./moiCollection.services.js";
 
 export const moiCollectionResolvers = {
     Query: {
-        getMoiByEvent: async (_: any, { eventId }: any, context: any) => {
+        getMoiByEvent: async (_: any, { eventId, page = 1, limit = 10, search = "" }: any, context: any) => {
             if (!context || !context.user) {
                 throw new Error("Unauthorized");
             }
-            return MoiCollectionService.getMoiByEvent(eventId);
+            return MoiCollectionService.getMoiByEvent(eventId, page, limit, search);
         }
     },
     Mutation: {
@@ -20,7 +20,7 @@ export const moiCollectionResolvers = {
             return MoiCollectionService.createMoiCollection(input);
         },
 
-        updateMoiCollection: async(_:any, { id, input }:any, context:any)=>{
+        updateMoiCollection: async (_: any, { id, input }: any, context: any) => {
             if (!context || !context.user) {
                 throw new Error("Unauthorized");
             }
