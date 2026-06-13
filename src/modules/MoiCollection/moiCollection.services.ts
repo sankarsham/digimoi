@@ -105,12 +105,23 @@ export const MoiCollectionService = {
 
         const query: any = { eventId: new Types.ObjectId(eventId) };
 
-        if (search) {
-            query.$or = [
+        console.log("SEARCH TERM IS:", typeof search, search);
+
+        if (search && search !== "undefined" && search !== "null" && search.trim() !== "") {
+            const orConditions: any[] = [
                 { name: { $regex: search, $options: "i" } },
                 { place: { $regex: search, $options: "i" } },
-                { phoneNumber: { $regex: search, $options: "i" } }
+                { phoneNumber: { $regex: search, $options: "i" } },
+                { native: { $regex: search, $options: "i" } },
+                { operatorName: { $regex: search, $options: "i" } }
             ];
+
+            const searchNumber = Number(search);
+            if (!isNaN(searchNumber)) {
+                orConditions.push({ amount: searchNumber });
+            }
+
+            query.$or = orConditions;
         }
 
         const skip = (page - 1) * limit;
