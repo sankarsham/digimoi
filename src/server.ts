@@ -53,16 +53,9 @@ async function startServer() {
     const PORT: number = 5000;
     await server.start();
 
-    server.applyMiddleware({
-    app: app as any,
-    path: "/graphql",
-    cors: {
-        origin: [
-            "http://localhost:5173",
-            "https://digimoi.vercel.app",
-        ],
-        credentials: true,
-    },
+ server.applyMiddleware({
+  app,
+  path: "/graphql",
 });
     const httpServer = app.listen(PORT, "0.0.0.0", () => {
         console.log(`GraphQL is running on Port  http://localhost:${PORT}`);
