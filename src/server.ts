@@ -53,9 +53,10 @@ async function startServer() {
     const PORT: number = 5000;
     await server.start();
 
- server.applyMiddleware({
+server.applyMiddleware({
   app,
   path: "/graphql",
+  cors: false, // Let Express handle CORS
 });
     const httpServer = app.listen(PORT, "0.0.0.0", () => {
         console.log(`GraphQL is running on Port  http://localhost:${PORT}`);
