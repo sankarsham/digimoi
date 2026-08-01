@@ -14,6 +14,8 @@ export const MoiCollectionService = {
             phoneNumber,
             operatorName,
             amount,
+            amountReceived,
+            balance,
             cashBreakdown,
         } = input;
         if (!eventId || !Types.ObjectId.isValid(eventId)) {
@@ -34,6 +36,8 @@ export const MoiCollectionService = {
             phoneNumber,
             operatorName,
             amount,
+            amountReceived,
+            balance,
             cashBreakdown: cashBreakdown || [],
         };
 
@@ -60,6 +64,8 @@ export const MoiCollectionService = {
             phoneNumber: populatedMoi.phoneNumber || null,
             operatorName: populatedMoi.operatorName || null,
             amount: populatedMoi.amount || null,
+            amountReceived: populatedMoi.amountReceived || null,
+            balance: populatedMoi.balance || null,
             cashBreakdown: populatedMoi.cashBreakdown || [],
             createdTime: populatedMoi.createdTime ? new Date(populatedMoi.createdTime).toISOString() : null,
         };
@@ -82,6 +88,8 @@ export const MoiCollectionService = {
             phoneNumber: updateMoi.phoneNumber || null,
             operatorName: updateMoi.operatorName || null,
             amount: updateMoi.amount || null,
+            amountReceived: updateMoi.amountReceived || null,
+            balance: updateMoi.balance || null,
             cashBreakdown: updateMoi.cashBreakdown || [],
             createdTime: updateMoi.createdTime ? new Date(updateMoi.createdTime).toISOString() : null,
 
@@ -113,7 +121,8 @@ export const MoiCollectionService = {
                 { place: { $regex: search, $options: "i" } },
                 { phoneNumber: { $regex: search, $options: "i" } },
                 { native: { $regex: search, $options: "i" } },
-                { operatorName: { $regex: search, $options: "i" } }
+                { operatorName: { $regex: search, $options: "i" } },
+                { work: { $regex: search, $options: "i" } }
             ];
 
             const searchNumber = Number(search);
@@ -150,6 +159,8 @@ export const MoiCollectionService = {
                 phoneNumber: moi.phoneNumber || null,
                 operatorName: moi.operatorName || null,
                 amount: moi.amount || null,
+                amountReceived: moi.amountReceived || null,
+                balance: moi.balance || null,
                 cashBreakdown: moi.cashBreakdown || [],
                 createdTime: moi.createdTime ? new Date(moi.createdTime).toISOString() : null,
             })),
