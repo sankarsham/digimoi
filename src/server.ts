@@ -9,7 +9,7 @@ import { mongoDBConnect } from "./DB/config.js";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: ["http://localhost:5173", "https://digimoi.vercel.app",] }));
 
 app.get("/", (req, res) => {
     res.send("server is running");
